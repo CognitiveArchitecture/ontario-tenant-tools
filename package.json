@@ -6,7 +6,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/[org]/ontario-tenant-tools.git"
+    "url": "https://github.com/CognitiveArchitecture/ontario-tenant-tools.git"
   },
   "keywords": [
     "tenant",
