@@ -17,8 +17,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -29,18 +29,66 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Run tests
+      - name: Run tests with coverage
         run: npm test -- --run --coverage
+
+      - name: Coverage gate (packages/)
+        run: |
+          # Extract coverage percentage for packages/ from coverage summary
+          if [ -f coverage/coverage-summary.json ]; then
+            COVERAGE=$(cat coverage/coverage-summary.json | jq '.total.lines.pct')
+            echo "Total line coverage: ${COVERAGE}%"
+
+            # Gate: require 95% coverage on business logic
+            if (( $(echo "$COVERAGE < 95" | bc -l) )); then
+              echo "::error::Coverage ${COVERAGE}% is below 95% threshold"
+              exit 1
+            else
+              echo "Coverage gate passed: ${COVERAGE}% >= 95%"
+            fi
+          else
+            echo "::warning::Coverage summary not found, skipping gate"
+          fi
 
       - name: Build
         run: npm run build
 
-      - name: Check bundle size
+      - name: Bundle size gate
         run: |
           echo "=== Bundle Size Report ==="
-          du -sh dist/
-          echo "--- Individual files ---"
-          ls -lh dist/assets/
-          echo "--- Gzipped sizes ---"
-          gzip -c dist/assets/*.js | wc -c | awk '{printf "JS: %.2f KB\n", $1/1024}'
-          gzip -c dist/assets/*.css | wc -c | awk '{printf "CSS: %.2f KB\n", $1/1024}'
+
+          # Calculate gzipped sizes
+          JS_GZIP=$(gzip -c dist/assets/*.js | wc -c)
+          CSS_GZIP=$(gzip -c dist/assets/*.css | wc -c)
+
+          JS_KB=$(echo "scale=2; $JS_GZIP / 1024" | bc)
+          CSS_KB=$(echo "scale=2; $CSS_GZIP / 1024" | bc)
+
+          echo "JS (gzipped): ${JS_KB} KB"
+          echo "CSS (gzipped): ${CSS_KB} KB"
+
+          # Gates: JS <= 50KB, CSS <= 15KB (gzipped)
+          JS_LIMIT=51200   # 50KB in bytes
+          CSS_LIMIT=15360  # 15KB in bytes
+
+          FAILED=0
+
+          if [ $JS_GZIP -gt $JS_LIMIT ]; then
+            echo "::error::JS bundle ${JS_KB}KB exceeds 50KB gzip limit"
+            FAILED=1
+          else
+            echo "JS bundle within limit"
+          fi
+
+          if [ $CSS_GZIP -gt $CSS_LIMIT ]; then
+            echo "::error::CSS bundle ${CSS_KB}KB exceeds 15KB gzip limit"
+            FAILED=1
+          else
+            echo "CSS bundle within limit"
+          fi
+
+          if [ $FAILED -eq 1 ]; then
+            exit 1
+          fi
+
+          echo "Bundle size gates passed"
