@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test -- --run --coverage
+
+      - name: Build
+        run: npm run build
+
+      - name: Check bundle size
+        run: |
+          echo "=== Bundle Size Report ==="
+          du -sh dist/
+          echo "--- Individual files ---"
+          ls -lh dist/assets/
+          echo "--- Gzipped sizes ---"
+          gzip -c dist/assets/*.js | wc -c | awk '{printf "JS: %.2f KB\n", $1/1024}'
+          gzip -c dist/assets/*.css | wc -c | awk '{printf "CSS: %.2f KB\n", $1/1024}'

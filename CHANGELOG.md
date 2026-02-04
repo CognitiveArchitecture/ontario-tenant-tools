@@ -9,6 +9,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (Audit Sprint - 2026-02-04)
+
+- **Comprehensive Test Suite Expansion**
+  - `tests/glossary.test.ts` — 33 tests for glossary search and retrieval
+  - `tests/session.test.ts` — 23 tests for session state manager
+  - `tests/views.test.ts` — 38 smoke tests for all 10 view modules
+  - Total: **168 tests** (up from 74)
+
+- **CI/CD Infrastructure**
+  - `.github/workflows/ci.yml` — GitHub Actions pipeline (typecheck, lint, test, build)
+  - Pre-commit hooks via Husky + lint-staged
+  - Coverage reporting configuration
+
+- **Code Quality Configuration**
+  - `.eslintrc.json` — Strict TypeScript linting rules
+  - `.prettierrc` — Consistent code formatting
+
+### Fixed
+
+- TypeScript strict mode errors in `packages/calculator/arrears.ts`
+- TypeScript strict mode errors in `packages/core/dates.ts`
+- TypeScript strict mode errors in `src/views/report.ts`
+- Removed unused imports (`Cents`, `addDays`, `businessDaysBetween`)
+- Removed unused path alias `@timeline/*` from `tsconfig.json`
+
+### Security
+
+- Security audit completed: No critical vulnerabilities
+- innerHTML usage reviewed: All user inputs constrained to date/number types
+- Session state verified as memory-only (no persistence)
+- Quick Exit verified to clear all storage mechanisms
+
+---
+
 ### Added
 
 - **Rent Increase Calculator** (`packages/calculator/rent-increase.ts`)
@@ -45,6 +79,7 @@ These additions are part of a consolidation effort merging functionality from th
 ### Regulatory Notes
 
 Per `legal/REGULATORY_GAPS.md`:
+
 - Rent increase guideline rates are confirmed through 2026
 - Section 82 deposit requirement (50%) is in DRAFT status—regulations pending
 
@@ -185,20 +220,20 @@ vitest.config.ts
 
 ### Files Modified
 
-| File | Changes |
-|------|---------|
-| `src/views/n4.ts` | Added `recordCalculation()` call |
-| `src/views/n12.ts` | Added `recordCalculation()` call |
-| `src/views/rent.ts` | Added `recordCalculation()` call, `dollarsToCents` import |
-| `src/views/review.ts` | Added `recordCalculation()` call |
-| `src/views/s82.ts` | Added `recordCalculation()` call, `dollarsToCents` import |
-| `src/views/report.ts` | Rewrote to use session state, added grouped display |
-| `src/components/quick-exit.ts` | Added `clearSession()` call |
+| File                           | Changes                                                   |
+| ------------------------------ | --------------------------------------------------------- |
+| `src/views/n4.ts`              | Added `recordCalculation()` call                          |
+| `src/views/n12.ts`             | Added `recordCalculation()` call                          |
+| `src/views/rent.ts`            | Added `recordCalculation()` call, `dollarsToCents` import |
+| `src/views/review.ts`          | Added `recordCalculation()` call                          |
+| `src/views/s82.ts`             | Added `recordCalculation()` call, `dollarsToCents` import |
+| `src/views/report.ts`          | Rewrote to use session state, added grouped display       |
+| `src/components/quick-exit.ts` | Added `clearSession()` call                               |
 
 ### Files Created
 
-| File | Purpose |
-|------|---------|
+| File                   | Purpose               |
+| ---------------------- | --------------------- |
 | `src/utils/session.ts` | Session state manager |
 
 ---

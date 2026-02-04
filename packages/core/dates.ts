@@ -1,16 +1,16 @@
 /**
  * Ontario Tenant Tools - Date Calculation Utilities
- * 
+ *
  * Core functions for calculating deadlines under the RTA.
  * Updated for Bill 60 (November 2025).
  */
 
-import type { 
-  JudicialCalendar, 
-  N4Calculation, 
+import type {
+  JudicialCalendar,
+  N4Calculation,
   N12Calculation,
   ReviewDeadline,
-  Holiday 
+  Holiday,
 } from './types';
 
 import calendarData from './calendar.json';
@@ -25,7 +25,10 @@ const calendar = calendarData as JudicialCalendar;
  * Parse ISO date string to Date object (midnight local time)
  */
 export function parseDate(dateStr: string): Date {
-  const [year, month, day] = dateStr.split('-').map(Number);
+  const parts = dateStr.split('-').map(Number);
+  const year = parts[0] ?? 0;
+  const month = parts[1] ?? 1;
+  const day = parts[2] ?? 1;
   return new Date(year, month - 1, day);
 }
 
@@ -71,8 +74,8 @@ export function isStatutoryHoliday(date: Date): Holiday | null {
   const dateStr = formatDate(date);
   const year = date.getFullYear();
   const holidays = getHolidaysForYear(year);
-  
-  return holidays.find(h => h.date === dateStr) || null;
+
+  return holidays.find((h) => h.date === dateStr) || null;
 }
 
 /**
@@ -104,9 +107,9 @@ export function getNonBusinessDayReason(date: Date): string | null {
 
 /**
  * Calculate N4 notice deadlines
- * 
+ *
  * Bill 60 Change: Reduced cure period from 14 to 7 BUSINESS days.
- * 
+ *
  * @param servedDate - Date the N4 notice was served (YYYY-MM-DD)
  * @returns N4Calculation with all relevant deadlines
  */
@@ -114,13 +117,13 @@ export function calculateN4Deadline(servedDate: string): N4Calculation {
   const served = parseDate(servedDate);
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  
+
   const CURE_DAYS = 7; // Bill 60 change
-  
+
   let businessDaysCount = 0;
   let current = addDays(served, 1); // Start counting from day after service
   const skippedDays: Array<{ date: string; reason: string }> = [];
-  
+
   while (businessDaysCount < CURE_DAYS) {
     if (isBusinessDay(current)) {
       businessDaysCount++;
@@ -130,19 +133,19 @@ export function calculateN4Deadline(servedDate: string): N4Calculation {
         skippedDays.push({ date: formatDate(current), reason });
       }
     }
-    
+
     if (businessDaysCount < CURE_DAYS) {
       current = addDays(current, 1);
     }
   }
-  
+
   const cureDeadline = current;
   const canFileL1Date = addDays(cureDeadline, 1);
-  
+
   // Calculate days remaining
   const msPerDay = 24 * 60 * 60 * 1000;
   const daysRemaining = Math.ceil((cureDeadline.getTime() - today.getTime()) / msPerDay);
-  
+
   return {
     servedDate,
     cureDeadline: formatDate(cureDeadline),
@@ -159,9 +162,9 @@ export function calculateN4Deadline(servedDate: string): N4Calculation {
 
 /**
  * Calculate N12 notice deadlines
- * 
+ *
  * Bill 60 Change: If landlord gives 120 days notice, no compensation required.
- * 
+ *
  * @param servedDate - Date the N12 notice was served (YYYY-MM-DD)
  * @param noticeDays - Either 60 (standard) or 120 (no compensation)
  * @param monthlyRent - Monthly rent in cents (for compensation calculation)
@@ -174,19 +177,19 @@ export function calculateN12Deadline(
 ): N12Calculation {
   const served = parseDate(servedDate);
   const termination = addDays(served, noticeDays);
-  
+
   const warnings: string[] = [];
-  
+
   // Compensation only required for 60-day notice (Bill 60)
   const compensationRequired = noticeDays === 60;
   const compensationAmount = compensationRequired ? monthlyRent : 0;
-  
+
   if (noticeDays === 120) {
     warnings.push(
       'Bill 60 (2025): No compensation required when landlord provides 120 days notice.'
     );
   }
-  
+
   return {
     servedDate,
     terminationDate: formatDate(termination),
@@ -203,9 +206,9 @@ export function calculateN12Deadline(
 
 /**
  * Calculate Request for Review deadline
- * 
+ *
  * Bill 60 Change: Reduced from 30 to 15 CALENDAR days.
- * 
+ *
  * @param orderDate - Date the LTB order was issued (YYYY-MM-DD)
  * @returns ReviewDeadline with deadline info
  */
@@ -213,29 +216,27 @@ export function calculateReviewDeadline(orderDate: string): ReviewDeadline {
   const order = parseDate(orderDate);
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  
+
   const REVIEW_DAYS = 15; // Bill 60 change (was 30)
-  
+
   const deadline = addDays(order, REVIEW_DAYS);
-  
+
   const msPerDay = 24 * 60 * 60 * 1000;
   const daysRemaining = Math.ceil((deadline.getTime() - today.getTime()) / msPerDay);
-  
+
   const warnings: string[] = [];
-  
+
   if (daysRemaining <= 5 && daysRemaining > 0) {
     warnings.push(`URGENT: Only ${daysRemaining} days left to file Request for Review.`);
   }
-  
+
   if (daysRemaining <= 0) {
     warnings.push('The deadline to file a Request for Review has passed.');
   }
-  
+
   // Note the Bill 60 change
-  warnings.push(
-    'Bill 60 (2025): Review period reduced from 30 to 15 days. Act quickly.'
-  );
-  
+  warnings.push('Bill 60 (2025): Review period reduced from 30 to 15 days. Act quickly.');
+
   return {
     orderDate,
     deadline: formatDate(deadline),
@@ -255,17 +256,17 @@ export function calculateReviewDeadline(orderDate: string): ReviewDeadline {
 export function businessDaysBetween(startDate: string, endDate: string): number {
   const start = parseDate(startDate);
   const end = parseDate(endDate);
-  
+
   let count = 0;
   let current = addDays(start, 1);
-  
+
   while (current <= end) {
     if (isBusinessDay(current)) {
       count++;
     }
     current = addDays(current, 1);
   }
-  
+
   return count;
 }
 
@@ -275,7 +276,7 @@ export function businessDaysBetween(startDate: string, endDate: string): number 
 export function calendarDaysBetween(startDate: string, endDate: string): number {
   const start = parseDate(startDate);
   const end = parseDate(endDate);
-  
+
   const msPerDay = 24 * 60 * 60 * 1000;
   return Math.ceil((end.getTime() - start.getTime()) / msPerDay);
 }

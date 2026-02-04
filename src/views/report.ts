@@ -4,7 +4,7 @@
  * Generates a session summary that can be copied or printed.
  */
 
-import { getReportData, hasCalculations } from "../utils/session";
+import { getReportData, hasCalculations } from '../utils/session';
 
 export function render(): string {
   return `
@@ -43,25 +43,25 @@ export function render(): string {
 }
 
 export function init(): void {
-  const copyBtn = document.getElementById("copy-report");
-  const printBtn = document.getElementById("print-report");
+  const copyBtn = document.getElementById('copy-report');
+  const printBtn = document.getElementById('print-report');
 
-  copyBtn?.addEventListener("click", copyReport);
-  printBtn?.addEventListener("click", () => window.print());
+  copyBtn?.addEventListener('click', copyReport);
+  printBtn?.addEventListener('click', () => window.print());
 
   // Generate the report content
   generateReportContent();
 }
 
 function generateReportContent(): void {
-  const reportContent = document.getElementById("report-content");
+  const reportContent = document.getElementById('report-content');
   if (!reportContent) return;
 
-  const today = new Date().toLocaleDateString("en-CA", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+  const today = new Date().toLocaleDateString('en-CA', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   });
 
   // Get data from session state
@@ -78,20 +78,22 @@ function generateReportContent(): void {
 
   // Tool display names
   const toolNames: Record<string, string> = {
-    n4: "N4 Notice (Unpaid Rent)",
-    n12: "N12 Notice (Landlord Moving In)",
-    rent: "Rent Increase Check",
-    review: "Eviction Order Review",
-    s82: "Section 82 Deposit",
+    n4: 'N4 Notice (Unpaid Rent)',
+    n12: 'N12 Notice (Landlord Moving In)',
+    rent: 'Rent Increase Check',
+    review: 'Eviction Order Review',
+    s82: 'Section 82 Deposit',
   };
 
   // Group items by tool for organized display
   const grouped: Record<string, Array<{ label: string; value: string }>> = {};
   for (const item of data) {
-    if (!grouped[item.tool]) {
-      grouped[item.tool] = [];
+    const toolGroup = grouped[item.tool];
+    if (toolGroup) {
+      toolGroup.push({ label: item.label, value: item.value });
+    } else {
+      grouped[item.tool] = [{ label: item.label, value: item.value }];
     }
-    grouped[item.tool].push({ label: item.label, value: item.value });
   }
 
   let html = `
@@ -128,22 +130,22 @@ function generateReportContent(): void {
 }
 
 async function copyReport(): Promise<void> {
-  const reportContent = document.getElementById("report-content");
+  const reportContent = document.getElementById('report-content');
   if (!reportContent) return;
 
   const text = reportContent.innerText;
 
   try {
     await navigator.clipboard.writeText(text);
-    alert("Report copied to clipboard!");
+    alert('Report copied to clipboard!');
   } catch {
     // Fallback for older browsers
-    const textarea = document.createElement("textarea");
+    const textarea = document.createElement('textarea');
     textarea.value = text;
     document.body.appendChild(textarea);
     textarea.select();
-    document.execCommand("copy");
+    document.execCommand('copy');
     document.body.removeChild(textarea);
-    alert("Report copied to clipboard!");
+    alert('Report copied to clipboard!');
   }
 }

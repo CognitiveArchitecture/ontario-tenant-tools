@@ -1,6 +1,6 @@
 /**
  * Ontario Tenant Tools - Rent Arrears Calculator
- * 
+ *
  * Calculates rent owed using FIFO (First-In-First-Out) accounting.
  * Segregates late fees from rent for defense purposes.
  */
@@ -11,7 +11,6 @@ import type {
   LedgerEntry,
   ArrearsCalculation,
   ArrearsWarning,
-  Cents,
 } from '../core/types';
 import { dollarsToCents, formatCurrency } from '../core/types';
 
@@ -21,27 +20,28 @@ import { dollarsToCents, formatCurrency } from '../core/types';
 
 /**
  * Calculate rent arrears using FIFO accounting
- * 
+ *
  * FIFO means oldest charges are paid first. This is the standard
  * in most Ontario eviction proceedings.
- * 
+ *
  * @param charges - Array of charges (rent, fees, etc.)
  * @param payments - Array of payments made
  * @returns ArrearsCalculation with ledger, totals, and warnings
  */
-export function calculateArrears(
-  charges: Charge[],
-  payments: Payment[]
-): ArrearsCalculation {
+export function calculateArrears(charges: Charge[], payments: Payment[]): ArrearsCalculation {
   // Combine and sort all transactions by date
   const transactions = [
-    ...charges.map(c => ({ ...c, isCharge: true as const })),
-    ...payments.map(p => ({ ...p, isCharge: false as const, type: 'payment' as const })),
+    ...charges.map((c) => ({ ...c, isCharge: true as const })),
+    ...payments.map((p) => ({
+      ...p,
+      isCharge: false as const,
+      type: 'payment' as const,
+    })),
   ].sort((a, b) => a.date.localeCompare(b.date));
 
   const entries: LedgerEntry[] = [];
   const warnings: ArrearsWarning[] = [];
-  
+
   let runningBalance = 0;
   let totalCharges = 0;
   let totalPayments = 0;
@@ -56,7 +56,7 @@ export function calculateArrears(
 
       if (charge.type === 'late_fee') {
         lateFeeTotal += charge.amount;
-        
+
         // Check for potentially illegal late fees
         // Ontario: Late fees must be in lease and reasonable
         if (charge.amount > dollarsToCents(50)) {
@@ -148,7 +148,7 @@ export function generateLedgerText(calculation: ArrearsCalculation): string {
     const charge = entry.charge > 0 ? formatCurrency(entry.charge).padStart(9) : '         ';
     const payment = entry.payment > 0 ? formatCurrency(entry.payment).padStart(9) : '         ';
     const balance = formatCurrency(entry.balance).padStart(9);
-    
+
     lines.push(`${date} | ${desc} | ${charge} | ${payment} | ${balance}`);
   }
 
@@ -159,7 +159,7 @@ export function generateLedgerText(calculation: ArrearsCalculation): string {
   lines.push(`Total Payments:    ${formatCurrency(calculation.totalPayments)}`);
   lines.push(`Current Balance:   ${formatCurrency(calculation.currentBalance)}`);
   lines.push('');
-  
+
   if (calculation.lateFeeTotal > 0) {
     lines.push('BREAKDOWN:');
     lines.push(`Late Fees Charged: ${formatCurrency(calculation.lateFeeTotal)}`);
@@ -241,13 +241,14 @@ export function createChargeFromDollars(
   description?: string,
   period?: string
 ): Charge {
-  return {
+  const charge: Charge = {
     date,
     amount: dollarsToCents(amountDollars),
     type,
-    description,
-    period,
   };
+  if (description !== undefined) charge.description = description;
+  if (period !== undefined) charge.period = period;
+  return charge;
 }
 
 /**
@@ -258,9 +259,10 @@ export function createPaymentFromDollars(
   amountDollars: number,
   description?: string
 ): Payment {
-  return {
+  const payment: Payment = {
     date,
     amount: dollarsToCents(amountDollars),
-    description,
   };
+  if (description !== undefined) payment.description = description;
+  return payment;
 }

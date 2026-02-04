@@ -28,7 +28,8 @@
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
     "a11y": "npm run build && pa11y-ci",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
@@ -38,6 +39,8 @@
     "eslint": "^8.55.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jsx-a11y": "^6.8.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "pa11y-ci": "^3.1.0",
     "prettier": "^3.1.0",
     "typescript": "^5.3.0",
@@ -51,5 +54,14 @@
   "browserslist": [
     "defaults",
     "not IE 11"
-  ]
+  ],
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css}": [
+      "prettier --write"
+    ]
+  }
 }
