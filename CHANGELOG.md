@@ -28,6 +28,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **CI pipeline failure** — Added missing `@vitest/coverage-v8@1.6.1` dependency
+  - CI was failing at test step because coverage provider wasn't installed
+  - GitHub Actions cannot prompt interactively for missing packages
+  - Version pinned to match vitest@1.6.1
+
 - TypeScript strict mode errors in `packages/calculator/arrears.ts`
 - TypeScript strict mode errors in `packages/core/dates.ts`
 - TypeScript strict mode errors in `src/views/report.ts`
