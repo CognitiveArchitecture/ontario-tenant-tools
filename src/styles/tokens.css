@@ -1,0 +1,42 @@
+/**
+ * Ontario Tenant Tools - Design Tokens
+ *
+ * CSS custom properties for colors, spacing, and typography.
+ * Default: Dark slate theme (optimized for low-light reading)
+ */
+
+:root {
+  /* Base Palette (Dark Slate - Default) */
+  --surface-base: #0f172a;
+  --surface-card: #1e293b;
+  --surface-float: #334155;
+
+  /* Typography Colors */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+
+  /* Brand */
+  --brand-primary: #3b82f6;
+  --brand-glow: rgba(59, 130, 246, 0.3);
+
+  /* Semantic States */
+  --state-danger-bg: #450a0a;
+  --state-danger-fg: #fecaca;
+  --state-warning-bg: #422006;
+  --state-warning-fg: #fed7aa;
+  --state-success-bg: #064e3b;
+  --state-success-fg: #a7f3d0;
+
+  /* Typography */
+  --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-size-base: clamp(1rem, 4vw, 1.2rem);
+
+  /* Spacing & Radius */
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --shadow-soft: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+
+  /* Layout */
+  --header-height: 70px;
+  --nav-height: 80px;
+}

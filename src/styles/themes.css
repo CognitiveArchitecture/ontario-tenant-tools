@@ -1,0 +1,63 @@
+/**
+ * Ontario Tenant Tools - Theme Overrides
+ *
+ * Light mode and high contrast variants.
+ */
+
+/* Light Mode */
+body.light-mode {
+  --surface-base: #f1f5f9;
+  --surface-card: #ffffff;
+  --surface-float: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --brand-primary: #2563eb;
+  --state-danger-bg: #fee2e2;
+  --state-danger-fg: #991b1b;
+  --state-warning-bg: #ffedd5;
+  --state-warning-fg: #9a3412;
+  --state-success-bg: #dcfce7;
+  --state-success-fg: #166534;
+}
+
+body.light-mode header {
+  background: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .bottom-nav {
+  background: rgba(255, 255, 255, 0.9);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode input {
+  background: #fff;
+  border: 1px solid #cbd5e1;
+}
+
+/* High Contrast (WCAG AAA) */
+body.high-contrast {
+  --surface-base: #000000 !important;
+  --surface-card: #000000 !important;
+  --surface-float: #000000 !important;
+  --text-primary: #ffffff !important;
+  --text-secondary: #ffff00 !important;
+  --brand-primary: #ffff00 !important;
+  --brand-glow: none !important;
+  --state-danger-bg: #000 !important;
+  --state-danger-fg: #ff0000 !important;
+  --state-warning-bg: #000 !important;
+  --state-warning-fg: #ffff00 !important;
+  --state-success-bg: #000 !important;
+  --state-success-fg: #00ff00 !important;
+  --radius-lg: 0px !important;
+  --radius-md: 0px !important;
+}
+
+body.high-contrast .triage-card,
+body.high-contrast .tool-card,
+body.high-contrast input,
+body.high-contrast .btn-primary,
+body.high-contrast .alert-box {
+  border: 2px solid #fff !important;
+}

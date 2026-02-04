@@ -1,0 +1,67 @@
+{
+  "metadata": {
+    "description": "Ontario statutory holidays and LTB closure dates for deadline calculations",
+    "source": "Employment Standards Act, 2000; LTB website",
+    "last_updated": "2025-11-30",
+    "notes": "LTB closure dates should be verified annually"
+  },
+  "statutory_holidays": {
+    "2025": [
+      { "date": "2025-01-01", "name": "New Year's Day" },
+      { "date": "2025-02-17", "name": "Family Day", "rule": "third Monday of February" },
+      { "date": "2025-04-18", "name": "Good Friday" },
+      { "date": "2025-05-19", "name": "Victoria Day", "rule": "Monday before May 25" },
+      { "date": "2025-07-01", "name": "Canada Day" },
+      { "date": "2025-08-04", "name": "Civic Holiday", "rule": "first Monday of August", "note": "Not statutory but LTB closed" },
+      { "date": "2025-09-01", "name": "Labour Day", "rule": "first Monday of September" },
+      { "date": "2025-09-30", "name": "National Day for Truth and Reconciliation" },
+      { "date": "2025-10-13", "name": "Thanksgiving Day", "rule": "second Monday of October" },
+      { "date": "2025-11-11", "name": "Remembrance Day", "note": "Not statutory in Ontario but some offices closed" },
+      { "date": "2025-12-25", "name": "Christmas Day" },
+      { "date": "2025-12-26", "name": "Boxing Day" }
+    ],
+    "2026": [
+      { "date": "2026-01-01", "name": "New Year's Day" },
+      { "date": "2026-02-16", "name": "Family Day", "rule": "third Monday of February" },
+      { "date": "2026-04-03", "name": "Good Friday" },
+      { "date": "2026-05-18", "name": "Victoria Day", "rule": "Monday before May 25" },
+      { "date": "2026-07-01", "name": "Canada Day" },
+      { "date": "2026-08-03", "name": "Civic Holiday", "rule": "first Monday of August" },
+      { "date": "2026-09-07", "name": "Labour Day", "rule": "first Monday of September" },
+      { "date": "2026-09-30", "name": "National Day for Truth and Reconciliation" },
+      { "date": "2026-10-12", "name": "Thanksgiving Day", "rule": "second Monday of October" },
+      { "date": "2026-12-25", "name": "Christmas Day" },
+      { "date": "2026-12-26", "name": "Boxing Day" },
+      { "date": "2026-12-28", "name": "Boxing Day (Observed)", "note": "When Dec 26 falls on Saturday" }
+    ]
+  },
+  "ltb_closures": {
+    "note": "LTB may have additional closure dates. Verify with tribunalsontario.ca",
+    "annual_closures": [
+      { "period": "December 24-January 1", "name": "Holiday closure", "note": "Exact dates vary by year" }
+    ]
+  },
+  "calculation_rules": {
+    "n4_notice": {
+      "days": 7,
+      "type": "business_days",
+      "excludes": ["weekends", "statutory_holidays"],
+      "note": "Bill 60 reduced from 14 to 7 days"
+    },
+    "n12_notice_standard": {
+      "days": 60,
+      "type": "calendar_days",
+      "note": "Compensation required"
+    },
+    "n12_notice_extended": {
+      "days": 120,
+      "type": "calendar_days",
+      "note": "No compensation required (Bill 60)"
+    },
+    "review_period": {
+      "days": 15,
+      "type": "calendar_days",
+      "note": "Bill 60 reduced from 30 to 15 days"
+    }
+  }
+}
