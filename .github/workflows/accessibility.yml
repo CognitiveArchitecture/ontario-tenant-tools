@@ -43,9 +43,10 @@ jobs:
         run: |
           npx @axe-core/cli http://localhost:3000 --exit
         env:
-          PUPPETEER_EXECUTABLE_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
+          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
 
       - name: Run pa11y-ci
         run: npx pa11y-ci --config .pa11yci.json
         env:
+          CHROME_BIN: ${{ steps.setup-chrome.outputs.chrome-path }}
           PUPPETEER_EXECUTABLE_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
