@@ -55,6 +55,16 @@ export function render(): string {
       </div>
 
       <div style="margin-bottom:1rem; background:var(--surface-card); padding:1rem; border-radius:var(--radius-md); border:1px solid rgba(255,255,255,0.05);">
+        <h3 style="margin:0 0 0.5rem 0;">Resolving Disagreements</h3>
+        <p style="margin:0; color:var(--text-secondary);">
+          Steps to resolve issues with your landlord.
+        </p>
+        <a href="https://www.ontario.ca/page/solve-disagreement-your-landlord-or-tenant" target="_blank" rel="noopener noreferrer" style="color:var(--brand-primary); display:block; margin-top:0.5rem;">
+          Ontario.ca: Solve a Disagreement
+        </a>
+      </div>
+
+      <div style="margin-bottom:1rem; background:var(--surface-card); padding:1rem; border-radius:var(--radius-md); border:1px solid rgba(255,255,255,0.05);">
         <h3 style="margin:0 0 0.5rem 0;">Find a Legal Clinic</h3>
         <p style="margin:0; color:var(--text-secondary);">
           Free legal help for low-income Ontarians.
