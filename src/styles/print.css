@@ -17,6 +17,7 @@
   header,
   .bottom-nav,
   .fab-exit,
+  .site-footer,
   #back-btn,
   .header-actions,
   .view-section:not(.active),
@@ -49,7 +50,10 @@
     page-break-inside: avoid;
   }
 
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     color: #000 !important;
   }
 

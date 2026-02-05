@@ -26,7 +26,7 @@ export function render(): string {
         <p style="margin:0; color:var(--text-secondary);">
           Most landlords must use the official Ontario standard lease form.
         </p>
-        <a href="https://www.ontario.ca/page/guide-ontario-standard-lease" target="_blank" rel="noopener noreferrer" style="color:var(--brand-primary); display:block; margin-top:0.5rem;">
+        <a href="https://forms.mgcs.gov.on.ca/en/dataset/047-2229" target="_blank" rel="noopener noreferrer" style="color:var(--brand-primary); display:block; margin-top:0.5rem;">
           Download Standard Lease
         </a>
       </div>
@@ -36,8 +36,31 @@ export function render(): string {
         <p style="margin:0; color:var(--text-secondary);">
           Landlords cannot cut off heat, water, or electricity. This is illegal.
         </p>
-        <a href="https://tribunalsontario.ca/documents/ltb/Brochures/Maintenance%20and%20Repairs%20(EN).html" target="_blank" rel="noopener noreferrer" style="color:var(--brand-primary); display:block; margin-top:0.5rem;">
+        <a href="https://tribunalsontario.ca/documents/ltb/Brochures/Maintenance%20and%20Repairs.html" target="_blank" rel="noopener noreferrer" style="color:var(--brand-primary); display:block; margin-top:0.5rem;">
           Read LTB Brochure
+        </a>
+      </div>
+
+      <div style="margin-bottom:1rem; background:var(--surface-card); padding:1rem; border-radius:var(--radius-md); border:1px solid rgba(255,255,255,0.05);">
+        <h3 style="margin:0 0 0.5rem 0;">Tenant Rights</h3>
+        <p style="margin:0; color:var(--text-secondary);">
+          Know your rights as a tenant in Ontario.
+        </p>
+        <a href="https://www.ontario.ca/page/renting-ontario-your-rights" target="_blank" rel="noopener noreferrer" style="color:var(--brand-primary); display:block; margin-top:0.5rem;">
+          Ontario.ca: Your Rights
+        </a>
+        <a href="https://tribunalsontario.ca/documents/ltb/Interpretation%20Guidelines/06%20-%20Tenants%20Rights.html" target="_blank" rel="noopener noreferrer" style="color:var(--brand-primary); display:block; margin-top:0.5rem;">
+          LTB Guideline 6: Tenant Rights
+        </a>
+      </div>
+
+      <div style="margin-bottom:1rem; background:var(--surface-card); padding:1rem; border-radius:var(--radius-md); border:1px solid rgba(255,255,255,0.05);">
+        <h3 style="margin:0 0 0.5rem 0;">Resolving Disagreements</h3>
+        <p style="margin:0; color:var(--text-secondary);">
+          Steps to resolve issues with your landlord.
+        </p>
+        <a href="https://www.ontario.ca/page/solve-disagreement-your-landlord-or-tenant" target="_blank" rel="noopener noreferrer" style="color:var(--brand-primary); display:block; margin-top:0.5rem;">
+          Ontario.ca: Solve a Disagreement
         </a>
       </div>
 

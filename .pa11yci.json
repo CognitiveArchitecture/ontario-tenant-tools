@@ -1,0 +1,23 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "timeout": 30000,
+    "wait": 1000,
+    "runners": ["axe"],
+    "chromeLaunchConfig": {
+      "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+    }
+  },
+  "urls": [
+    "http://localhost:3000/",
+    "http://localhost:3000/#tools",
+    "http://localhost:3000/#n4",
+    "http://localhost:3000/#n12",
+    "http://localhost:3000/#rent",
+    "http://localhost:3000/#review",
+    "http://localhost:3000/#s82",
+    "http://localhost:3000/#report",
+    "http://localhost:3000/#resources",
+    "http://localhost:3000/#contacts"
+  ]
+}

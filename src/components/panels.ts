@@ -64,7 +64,7 @@ export function togglePanel(panel: HTMLElement): void {
 
     // Open the panel
     panel.classList.add('open');
-    panel.setAttribute('aria-hidden', 'false');
+    panel.removeAttribute('hidden');
     overlay?.classList.add('open');
 
     // Update button aria-expanded
@@ -91,7 +91,7 @@ export function closePanels(): void {
 
   panels.forEach((panel) => {
     panel.classList.remove('open');
-    panel.setAttribute('aria-hidden', 'true');
+    panel.setAttribute('hidden', '');
   });
 
   overlay?.classList.remove('open');
