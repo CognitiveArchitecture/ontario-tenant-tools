@@ -36,7 +36,7 @@ export function render(): string {
         <p style="margin:0; color:var(--text-secondary);">
           Landlords cannot cut off heat, water, or electricity. This is illegal.
         </p>
-        <a href="https://tribunalsontario.ca/documents/ltb/Brochures/Maintenance%20and%20Repairs%20(EN).html" target="_blank" rel="noopener noreferrer" style="color:var(--brand-primary); display:block; margin-top:0.5rem;">
+        <a href="https://tribunalsontario.ca/documents/ltb/Brochures/Maintenance%20and%20Repairs.html" target="_blank" rel="noopener noreferrer" style="color:var(--brand-primary); display:block; margin-top:0.5rem;">
           Read LTB Brochure
         </a>
       </div>
