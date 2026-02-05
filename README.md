@@ -74,7 +74,7 @@ The _Fighting Delays, Building Faster Act, 2025_ significantly changed tenant ri
 | N12 compensation | 1 month rent | **$0** (if 120+ days notice) |
 | Review deadline  | 30 days      | **15 days**                  |
 
-These tools reflect Bill 60 amendments. Some regulatory details remain pending—see `docs/REGULATORY_GAPS.md`.
+These tools reflect Bill 60 amendments. Some regulatory details remain pending—see `legal/REGULATORY_GAPS.md`.
 
 ---
 
@@ -97,7 +97,7 @@ Tenancy law and tribunal processes can change. App content may become outdated.
 
 - Content includes source links to primary references
 - Bill 60 amendments current as of November 2025
-- Regulatory gaps documented in `docs/REGULATORY_GAPS.md`
+- Regulatory gaps documented in `legal/REGULATORY_GAPS.md`
 - Changes tracked in `CHANGELOG.md`
 
 ---
