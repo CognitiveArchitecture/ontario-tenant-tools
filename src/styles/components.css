@@ -287,7 +287,7 @@ header h1 {
 /* === TOOL INTRO === */
 .tool-intro {
   background-color: var(--surface-card);
-  color: var(--text-secondary);
+  color: #e2e8f0; /* Explicit for axe-core contrast detection */
   padding: 1rem;
   border-radius: var(--radius-md);
   font-size: 0.95rem;
@@ -310,7 +310,7 @@ label {
   display: block;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: var(--text-secondary);
+  color: #e2e8f0; /* Explicit for axe-core contrast detection */
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -425,7 +425,7 @@ input:focus {
   display: flex;
   justify-content: space-between;
   font-size: 0.8rem;
-  color: var(--text-secondary);
+  color: #e2e8f0; /* Explicit for axe-core contrast detection */
 }
 
 .days-remaining {
@@ -464,7 +464,7 @@ input:focus {
 }
 
 .report-label {
-  color: var(--text-secondary);
+  color: #e2e8f0; /* Explicit for axe-core contrast detection */
   font-size: 0.9rem;
 }
 
@@ -531,7 +531,7 @@ input:focus {
   right: 1rem;
   background: transparent;
   border: none;
-  color: var(--text-secondary);
+  color: #e2e8f0; /* Explicit for axe-core contrast detection */
   cursor: pointer;
   padding: 0.5rem;
 }
@@ -624,11 +624,11 @@ input:focus {
   padding: 1rem;
   margin-bottom: calc(var(--nav-height) + 1rem);
   font-size: 0.75rem;
-  color: var(--text-secondary);
+  color: #e2e8f0; /* Explicit for axe-core contrast detection */
 }
 
 .site-footer a {
-  color: var(--text-secondary);
+  color: #e2e8f0; /* Explicit for axe-core contrast detection */
   text-decoration: none;
   transition: color 0.2s ease;
 }
