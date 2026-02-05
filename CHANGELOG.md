@@ -11,6 +11,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 - Content audit assertions for Resources view in `tests/views.test.ts` — verifies all 7 resource section headings and 8 external URLs are present in rendered output
+- `BACKLOG.md` for tracking pipeline and feature work
+- `CHANGELOG.md` documenting v0.1.0 and ongoing changes
+
+### Known Issues
+
+- Service worker serves stale content to returning users after deploys until manual reload (tracked as SW-001 in BACKLOG.md)
 
 ---
 
