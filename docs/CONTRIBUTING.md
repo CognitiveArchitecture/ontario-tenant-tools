@@ -142,7 +142,7 @@ Prefixes: `feat`, `fix`, `docs`, `test`, `refactor`, `style`, `chore`
 
 - **General questions:** [Open a discussion](../../discussions)
 - **Bugs or errors:** [Open an issue](../../issues)
-- **Security concerns:** Email [TBD] (do not open public issues)
+- **Security concerns:** [Email](mailto:admin@cognitivearchitecture.ca) (do not open public issues)
 
 ## Code of Conduct
 
