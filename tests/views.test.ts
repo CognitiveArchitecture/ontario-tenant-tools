@@ -284,6 +284,43 @@ describe('Resources View', () => {
     expect(html).toContain('rel="noopener noreferrer"');
   });
 
+  it('render() includes all resource section headings', () => {
+    const html = resources.render();
+    expect(html).toContain('Bill 60 Summary');
+    expect(html).toContain('Standard Lease');
+    expect(html).toContain('Vital Services');
+    expect(html).toContain('Tenant Rights');
+    expect(html).toContain('Resolving Disagreements');
+    expect(html).toContain('Find a Legal Clinic');
+    expect(html).toContain('Steps to Justice');
+  });
+
+  it('render() includes correct resource URLs', () => {
+    const html = resources.render();
+    // Standard Lease (updated from ontario.ca guide page)
+    expect(html).toContain('https://forms.mgcs.gov.on.ca/en/dataset/047-2229');
+    // Vital Services brochure (updated URL without (EN) suffix)
+    expect(html).toContain(
+      'https://tribunalsontario.ca/documents/ltb/Brochures/Maintenance%20and%20Repairs.html'
+    );
+    // Tenant Rights - ontario.ca
+    expect(html).toContain('https://www.ontario.ca/page/renting-ontario-your-rights');
+    // Tenant Rights - LTB Guideline 6
+    expect(html).toContain(
+      'https://tribunalsontario.ca/documents/ltb/Interpretation%20Guidelines/06%20-%20Tenants%20Rights.html'
+    );
+    // Resolving Disagreements
+    expect(html).toContain(
+      'https://www.ontario.ca/page/solve-disagreement-your-landlord-or-tenant'
+    );
+    // Legal Aid Ontario
+    expect(html).toContain('https://www.legalaid.on.ca/legal-clinics/');
+    // Steps to Justice
+    expect(html).toContain('https://stepstojustice.ca/legal-topic/housing-law');
+    // RTA
+    expect(html).toContain('https://www.ontario.ca/laws/statute/06r17');
+  });
+
   it('init() is a function', () => {
     expect(typeof resources.init).toBe('function');
   });
