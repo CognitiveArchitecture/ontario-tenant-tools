@@ -34,13 +34,14 @@ jobs:
         run: sleep 3
 
       - name: Setup Chrome
+        id: setup-chrome
         uses: browser-actions/setup-chrome@latest
         with:
           chrome-version: stable
 
       - name: Run axe-core audit
         run: |
-          npx @axe-core/cli http://localhost:3000 --exit
+          npx @axe-core/cli http://localhost:3000 --exit --chrome-bin="${{ steps.setup-chrome.outputs.chrome-path }}"
 
       - name: Run pa11y-ci
         run: npx pa11y-ci --config .pa11yci.json
