@@ -26,7 +26,7 @@ export function render(): string {
         <p style="margin:0; color:var(--text-secondary);">
           Most landlords must use the official Ontario standard lease form.
         </p>
-        <a href="https://www.ontario.ca/page/guide-ontario-standard-lease" target="_blank" rel="noopener noreferrer" style="color:var(--brand-primary); display:block; margin-top:0.5rem;">
+        <a href="https://forms.mgcs.gov.on.ca/en/dataset/047-2229" target="_blank" rel="noopener noreferrer" style="color:var(--brand-primary); display:block; margin-top:0.5rem;">
           Download Standard Lease
         </a>
       </div>
