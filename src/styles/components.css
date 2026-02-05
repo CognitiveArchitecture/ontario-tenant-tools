@@ -150,7 +150,7 @@ header h1 {
   position: fixed;
   bottom: calc(var(--nav-height) + 20px);
   right: 20px;
-  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  background: linear-gradient(135deg, #dc2626, #991b1b); /* Darker red for better contrast */
   color: white;
   border: none;
   width: 64px;
@@ -160,7 +160,7 @@ header h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 20px rgba(185, 28, 28, 0.4);
+  box-shadow: 0 10px 20px rgba(153, 27, 27, 0.5);
   z-index: 900;
   font-weight: bold;
   font-size: 0.75rem;
@@ -606,15 +606,18 @@ input:focus {
   position: absolute;
   top: -40px;
   left: 0;
-  background: var(--brand-primary);
+  background: #1e40af; /* Darker blue for better contrast with white text */
   color: white;
   padding: 8px 16px;
   z-index: 1000;
   text-decoration: none;
+  font-weight: 600;
 }
 
 .skip-link:focus {
   top: 0;
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
 }
 
 /* === SITE FOOTER === */
