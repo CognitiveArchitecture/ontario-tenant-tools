@@ -33,8 +33,11 @@ jobs:
       - name: Wait for server
         run: sleep 3
 
-      - name: Download Puppeteer's bundled Chromium
-        run: node -e "require('puppeteer').default.launch().then(b => b.close())" || npx puppeteer browsers install chrome
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
+        id: setup-chrome
 
       - name: Run pa11y-ci accessibility audit
         run: npx pa11y-ci --config .pa11yci.json
+        env:
+          PUPPETEER_EXECUTABLE_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
