@@ -44,8 +44,11 @@ export function render(): string {
       <div style="margin-bottom:1rem; background:var(--surface-card); padding:1rem; border-radius:var(--radius-md); border:1px solid rgba(255,255,255,0.05);">
         <h3 style="margin:0 0 0.5rem 0;">Tenant Rights</h3>
         <p style="margin:0; color:var(--text-secondary);">
-          Official LTB interpretation guideline on tenant rights.
+          Know your rights as a tenant in Ontario.
         </p>
+        <a href="https://www.ontario.ca/page/renting-ontario-your-rights" target="_blank" rel="noopener noreferrer" style="color:var(--brand-primary); display:block; margin-top:0.5rem;">
+          Ontario.ca: Your Rights
+        </a>
         <a href="https://tribunalsontario.ca/documents/ltb/Interpretation%20Guidelines/06%20-%20Tenants%20Rights.html" target="_blank" rel="noopener noreferrer" style="color:var(--brand-primary); display:block; margin-top:0.5rem;">
           LTB Guideline 6: Tenant Rights
         </a>
