@@ -14,7 +14,8 @@ export type ViewId =
   | 'n12'
   | 'rent'
   | 'review'
-  | 's82';
+  | 's82'
+  | 'not-found';
 
 export type TabId = 'home' | 'tools' | 'report' | 'resources' | 'contacts';
 
@@ -48,7 +49,21 @@ const VIEW_TITLES: Record<ViewId, string> = {
   rent: 'Rent Increase Check',
   review: 'Eviction Order Review',
   s82: 'Section 82 Deposit',
+  'not-found': 'Page Not Found',
 };
+
+/**
+ * Paths the app answers. Netlify sends every path to index.html, so the app
+ * has to tell an unknown address apart itself and show the not-found view.
+ */
+const KNOWN_PATHS = ['/', '/index.html'];
+
+/**
+ * Check whether a URL path is one the app serves.
+ */
+export function isKnownPath(pathname: string): boolean {
+  return KNOWN_PATHS.includes(pathname);
+}
 
 /**
  * Initialize the navigation system with view modules.
@@ -73,14 +88,30 @@ export function initNavigation(views: Record<ViewId, ViewModule>): void {
     backBtn.addEventListener('click', goBack);
   }
 
-  // Render initial view
-  renderView('home');
+  // Render initial view, or the not-found view for an unknown address
+  if (isKnownPath(window.location.pathname)) {
+    renderView('home');
+  } else {
+    showNotFound();
+  }
+}
+
+/**
+ * Show the not-found view. No tab is active and there is no history to go back to.
+ */
+export function showNotFound(): void {
+  state.historyStack = ['not-found'];
+  state.currentView = 'not-found';
+  renderView('not-found');
+  updateNavState(null);
+  updateBackButton(false);
 }
 
 /**
  * Switch to a tab view (clears history stack).
  */
 export function switchTab(tabId: TabId): void {
+  leaveUnknownPath();
   state.historyStack = [tabId];
   state.currentView = tabId;
   renderView(tabId);
@@ -147,7 +178,7 @@ function renderView(viewId: ViewId): void {
 /**
  * Update nav item active states.
  */
-function updateNavState(activeTab: TabId): void {
+function updateNavState(activeTab: TabId | null): void {
   const navItems = document.querySelectorAll('.nav-item');
   navItems.forEach((item) => {
     const viewId = item.getAttribute('data-view');
@@ -164,5 +195,18 @@ function updateBackButton(show: boolean): void {
   const backBtn = document.getElementById('back-btn');
   if (backBtn) {
     backBtn.style.display = show ? 'block' : 'none';
+  }
+}
+
+/**
+ * When the user leaves the not-found view, put the address back to the start
+ * page so that a reload or bookmark does not land on "Page Not Found" again.
+ */
+function leaveUnknownPath(): void {
+  if (state.currentView !== 'not-found') return;
+  try {
+    window.history.replaceState(null, '', '/');
+  } catch {
+    // History API might fail in some contexts
   }
 }

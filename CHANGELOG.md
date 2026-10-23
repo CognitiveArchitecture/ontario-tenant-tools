@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added (2026-10-23)
+
+- **Not-found view** (`src/views/not-found.ts`)
+  - Shows "Page Not Found" with a pixel-art illustration for any address the app does not know
+  - Netlify sends every path to `index.html`, so the app has to show its own 404 page
+  - The picture (`public/404-cliff.png`) is loaded on demand, not precached by the service worker
+  - pa11y-ci now also checks the not-found view; CI's static server runs in single-page mode
+
 ### Added (Audit Sprint - 2026-02-04)
 
 - **Comprehensive Test Suite Expansion**

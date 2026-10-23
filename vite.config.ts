@@ -46,6 +46,19 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,png,svg,woff2}'],
+        // The not-found picture is 218 KB, far more than everything else the
+        // service worker stores up front. Leave it out of the precache and
+        // cache it the first time the not-found view shows it instead.
+        globIgnores: ['404-cliff.png'],
+        runtimeCaching: [
+          {
+            urlPattern: /\/404-cliff\.png$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'not-found-image',
+            },
+          },
+        ],
       },
     }),
   ],
