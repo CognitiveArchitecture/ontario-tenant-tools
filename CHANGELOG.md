@@ -9,6 +9,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed (Accessibility coverage - 2026-10-23)
+
+- **The address bar names the view** — `#n4`, `#tools` and the other addresses already
+  listed in `.pa11yci.json` now open that view on load, and the address follows in-app
+  navigation (`src/utils/navigation.ts`, `tests/hash-routing.test.ts`). Before, every
+  address rendered the home view, so the CI scan had only ever checked the home screen.
+  Tools can now be linked to directly.
+- **Button contrast** — `.btn-primary` was white on `#3b82f6` (3.7:1). Buttons now use
+  `--brand-button-bg`/`--brand-button-fg` (`#1e40af` with white, 8.7:1, the skip link's
+  blue). In high contrast the buttons were white text on yellow (1.1:1); they are now
+  yellow on black inside the white border (19.6:1).
+- **Link and icon blue in dark mode** — `--brand-primary` moved from `#3b82f6` (4.0:1 on
+  cards) to `#60a5fa` (5.8:1 on cards, 7.0:1 on the page).
+- **Light mode text** — hard-coded `#e2e8f0` and `#f8fafc` text colours in
+  `components.css` (card titles and subtitles, tool intros, labels, timeline and report
+  labels, footer, bottom nav, panel close) were near-invisible on light backgrounds. They
+  use `--text-primary`/`--text-secondary` again, which pass in every theme. The Help tab's
+  red (`--text-danger`) and the report Copy button also pass in light mode now.
+- **Bottom nav background** — uses `--surface-base` (black in high contrast) and solid
+  white in light mode, so the contrast checker can resolve it.
+- **Scans in every theme** — `.pa11yci.light.json` and `.pa11yci.high-contrast.json`
+  switch the theme through the Settings panel before scanning the same ten addresses; the
+  Accessibility workflow and `npm run a11y` run all three.
+
 ### Added (Audit Sprint - 2026-02-04)
 
 - **Comprehensive Test Suite Expansion**
