@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   listed in `.pa11yci.json` now open that view on load, and the address follows in-app
   navigation (`src/utils/navigation.ts`, `tests/hash-routing.test.ts`). Before, every
   address rendered the home view, so the CI scan had only ever checked the home screen.
-  Tools can now be linked to directly.
+  Tools can now be linked to directly; a deep-linked view lands below the fixed header.
 - **Button contrast** — `.btn-primary` was white on `#3b82f6` (3.7:1). Buttons now use
   `--brand-button-bg`/`--brand-button-fg` (`#1e40af` with white, 8.7:1, the skip link's
   blue). In high contrast the buttons were white text on yellow (1.1:1); they are now

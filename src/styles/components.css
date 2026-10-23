@@ -538,6 +538,10 @@ input:focus {
 .view-section {
   display: none;
   animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  /* A deep link like /#n4 makes the browser scroll to this section. Leave room
+     for the fixed header, the main padding and the 20px slideUp start offset, so
+     the page stays at the top where the view was rendered */
+  scroll-margin-top: calc(var(--header-height) + 1.5rem + 20px);
 }
 
 .view-section.active {
