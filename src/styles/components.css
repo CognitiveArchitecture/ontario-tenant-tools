@@ -110,7 +110,7 @@ header h1 {
   left: 0;
   right: 0;
   height: var(--nav-height);
-  background: #0f172a; /* Solid background for reliable contrast computation */
+  background: var(--surface-base); /* Solid background for reliable contrast computation */
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   justify-content: space-around;
@@ -122,7 +122,7 @@ header h1 {
 .nav-item {
   background: none;
   border: none;
-  color: #e2e8f0; /* Light gray, high contrast on dark nav */
+  color: var(--text-secondary);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -141,6 +141,11 @@ header h1 {
 
 .nav-item.active {
   color: var(--brand-primary);
+}
+
+/* The Help tab is red in every theme so the emergency contacts stand out */
+.nav-item[data-view='contacts'] {
+  color: var(--text-danger);
 }
 
 /* === QUICK EXIT FAB === */
@@ -266,21 +271,21 @@ header h1 {
   font-weight: 700;
   line-height: 1.3;
   display: block;
-  color: #f8fafc; /* Explicit white for WCAG compliance */
+  color: var(--text-primary);
 }
 
 .text-box p,
 .tool-text small {
   margin: 0.25rem 0 0;
   font-size: 0.9rem;
-  color: #e2e8f0; /* Light gray, 10:1 contrast on #1e293b */
+  color: var(--text-secondary);
   display: block;
 }
 
 /* === TOOL INTRO === */
 .tool-intro {
   background-color: var(--surface-card);
-  color: #e2e8f0; /* Explicit for axe-core contrast detection */
+  color: var(--text-secondary);
   padding: 1rem;
   border-radius: var(--radius-md);
   font-size: 0.95rem;
@@ -303,7 +308,7 @@ label {
   display: block;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: #e2e8f0; /* Explicit for axe-core contrast detection */
+  color: var(--text-secondary);
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -334,8 +339,8 @@ input:focus {
 .btn-primary {
   width: 100%;
   height: 60px;
-  background: var(--brand-primary);
-  color: #fff;
+  background: var(--brand-button-bg);
+  color: var(--brand-button-fg);
   border: none;
   border-radius: var(--radius-md);
   font-size: 1.1rem;
@@ -418,7 +423,7 @@ input:focus {
   display: flex;
   justify-content: space-between;
   font-size: 0.8rem;
-  color: #e2e8f0; /* Explicit for axe-core contrast detection */
+  color: var(--text-secondary);
 }
 
 .days-remaining {
@@ -457,7 +462,7 @@ input:focus {
 }
 
 .report-label {
-  color: #e2e8f0; /* Explicit for axe-core contrast detection */
+  color: var(--text-secondary);
   font-size: 0.9rem;
 }
 
@@ -560,7 +565,7 @@ input:focus {
   right: 1rem;
   background: transparent;
   border: none;
-  color: #e2e8f0; /* Explicit for axe-core contrast detection */
+  color: var(--text-secondary);
   cursor: pointer;
   padding: 0.5rem;
 }
@@ -569,6 +574,10 @@ input:focus {
 .view-section {
   display: none;
   animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  /* A deep link like /#n4 makes the browser scroll to this section. Leave room
+     for the fixed header, the main padding and the 20px slideUp start offset, so
+     the page stays at the top where the view was rendered */
+  scroll-margin-top: calc(var(--header-height) + 1.5rem + 20px);
 }
 
 .view-section.active {
@@ -653,11 +662,11 @@ input:focus {
   padding: 1rem;
   margin-bottom: calc(var(--nav-height) + 1rem);
   font-size: 0.75rem;
-  color: #e2e8f0; /* Explicit for axe-core contrast detection */
+  color: var(--text-secondary);
 }
 
 .site-footer a {
-  color: #e2e8f0; /* Explicit for axe-core contrast detection */
+  color: var(--text-secondary);
   text-decoration: none;
   transition: color 0.2s ease;
 }

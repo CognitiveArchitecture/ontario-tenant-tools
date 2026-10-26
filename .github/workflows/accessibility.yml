@@ -42,3 +42,13 @@ jobs:
         run: npx pa11y-ci --config .pa11yci.json
         env:
           PUPPETEER_EXECUTABLE_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
+
+      - name: Run pa11y-ci accessibility audit (light mode)
+        run: npx pa11y-ci --config .pa11yci.light.json
+        env:
+          PUPPETEER_EXECUTABLE_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
+
+      - name: Run pa11y-ci accessibility audit (high contrast)
+        run: npx pa11y-ci --config .pa11yci.high-contrast.json
+        env:
+          PUPPETEER_EXECUTABLE_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
