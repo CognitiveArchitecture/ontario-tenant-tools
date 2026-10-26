@@ -27,7 +27,7 @@
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
-    "a11y": "npm run build && pa11y-ci",
+    "a11y": "npm run build && pa11y-ci --config .pa11yci.json && pa11y-ci --config .pa11yci.light.json && pa11y-ci --config .pa11yci.high-contrast.json",
     "typecheck": "tsc --noEmit",
     "prepare": "husky"
   },

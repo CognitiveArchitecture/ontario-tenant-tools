@@ -2,6 +2,8 @@
  * Ontario Tenant Tools - Navigation System
  *
  * Manages view switching, history stack, and tab navigation.
+ * The address bar names the current view ("#n4" is the N4 tool), so a view
+ * can be linked to directly and the accessibility scan can reach every view.
  */
 
 export type ViewId =
@@ -37,6 +39,8 @@ const state: NavigationState = {
 
 const TAB_VIEWS: TabId[] = ['home', 'tools', 'report', 'resources', 'contacts'];
 
+const ALL_VIEWS: ViewId[] = [...TAB_VIEWS, 'n4', 'n12', 'rent', 'review', 's82'];
+
 const VIEW_TITLES: Record<ViewId, string> = {
   home: 'Ontario Tenant Tools',
   tools: 'Toolbox',
@@ -49,6 +53,22 @@ const VIEW_TITLES: Record<ViewId, string> = {
   review: 'Eviction Order Review',
   s82: 'Section 82 Deposit',
 };
+
+/**
+ * Read the view named by an address-bar hash. "#n4" gives "n4". An empty or
+ * unknown hash (such as the skip link's "#main-content") gives null.
+ */
+export function viewFromHash(hash: string): ViewId | null {
+  const id = hash.replace(/^#/, '');
+  return ALL_VIEWS.find((viewId) => viewId === id) ?? null;
+}
+
+/**
+ * The address-bar hash that names a view: "" for home, "#n4" for the N4 tool.
+ */
+export function hashForView(viewId: ViewId): string {
+  return viewId === 'home' ? '' : `#${viewId}`;
+}
 
 /**
  * Initialize the navigation system with view modules.
@@ -73,8 +93,16 @@ export function initNavigation(views: Record<ViewId, ViewModule>): void {
     backBtn.addEventListener('click', goBack);
   }
 
-  // Render initial view
-  renderView('home');
+  // Follow the address bar when the user edits it or follows a link to a view
+  window.addEventListener('hashchange', () => {
+    const viewId = viewFromHash(window.location.hash);
+    if (viewId && viewId !== state.currentView) {
+      openView(viewId);
+    }
+  });
+
+  // Render the view named in the address bar, or home
+  openView(viewFromHash(window.location.hash) ?? 'home');
 }
 
 /**
@@ -125,6 +153,19 @@ export function getCurrentView(): ViewId {
 }
 
 /**
+ * Open a view as if arriving from a link: a tab starts a fresh history,
+ * a tool gets a back button that returns to the home view.
+ */
+function openView(viewId: ViewId): void {
+  if (TAB_VIEWS.includes(viewId as TabId)) {
+    switchTab(viewId as TabId);
+  } else {
+    state.historyStack = ['home'];
+    navigateToTool(viewId);
+  }
+}
+
+/**
  * Render a view into the main content area.
  */
 function renderView(viewId: ViewId): void {
@@ -141,6 +182,27 @@ function renderView(viewId: ViewId): void {
 
   if (pageTitle) {
     pageTitle.textContent = VIEW_TITLES[viewId] ?? 'Ontario Tenant Tools';
+  }
+
+  syncHash(viewId);
+}
+
+/**
+ * Keep the address bar in step with the view. Uses replaceState so no browser
+ * history entries are added: Quick Exit overwrites the current entry, and a
+ * longer trail of entries would weaken that.
+ */
+function syncHash(viewId: ViewId): void {
+  const hash = hashForView(viewId);
+  if (window.location.hash === hash) return;
+  try {
+    window.history.replaceState(
+      null,
+      '',
+      hash || window.location.pathname + window.location.search
+    );
+  } catch {
+    // History API might fail in some contexts
   }
 }
 

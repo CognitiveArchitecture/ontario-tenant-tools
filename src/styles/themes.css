@@ -10,14 +10,17 @@ body.light-mode {
   --surface-card: #ffffff;
   --surface-float: #e2e8f0;
   --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --brand-primary: #2563eb;
+  --text-secondary: #475569; /* 6.9:1 on base, 7.6:1 on cards, 6.2:1 on float */
+  --text-danger: #991b1b; /* Help tab: 7.6:1 on base */
+  --brand-primary: #2563eb; /* links, icons, active tab: 4.7:1 on base, 5.2:1 on cards */
+  --brand-button-bg: #1e40af; /* 8.7:1 with white */
+  --brand-button-fg: #ffffff;
   --state-danger-bg: #fee2e2;
-  --state-danger-fg: #991b1b;
+  --state-danger-fg: #991b1b; /* 6.8:1 */
   --state-warning-bg: #ffedd5;
-  --state-warning-fg: #9a3412;
+  --state-warning-fg: #9a3412; /* 6.4:1 */
   --state-success-bg: #dcfce7;
-  --state-success-fg: #166534;
+  --state-success-fg: #166534; /* 6.5:1 */
 }
 
 body.light-mode header {
@@ -26,7 +29,9 @@ body.light-mode header {
 }
 
 body.light-mode .bottom-nav {
-  background: rgba(255, 255, 255, 0.9);
+  /* Solid, not translucent: the nav sits below the body box, and the contrast
+     checker cannot resolve a see-through background there */
+  background: var(--surface-card);
   border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
@@ -42,7 +47,10 @@ body.high-contrast {
   --surface-float: #000000 !important;
   --text-primary: #ffffff !important;
   --text-secondary: #ffff00 !important;
+  --text-danger: #ff0000 !important; /* 5.3:1 on black */
   --brand-primary: #ffff00 !important;
+  --brand-button-bg: #000000 !important; /* buttons: yellow text on black, white border */
+  --brand-button-fg: #ffff00 !important;
   --brand-glow: none !important;
   --state-danger-bg: #000 !important;
   --state-danger-fg: #ff0000 !important;
