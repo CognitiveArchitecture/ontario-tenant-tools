@@ -9,6 +9,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed (Branding - 2026-10-27)
+
+- **The app now shares the Data Druid brand of sebthecanadian.ca** (`docs/DESIGN.md` has
+  every value and its contrast ratio)
+  - Colours: a neutral charcoal page in dark mode, warm parchment in light; one accent,
+    fern green in dark and violet in light; amber for the warning bar. Body text, links
+    and buttons reach 7:1 in both themes (`src/styles/tokens.css`, `src/styles/themes.css`)
+  - Type: Atkinson Hyperlegible for all text and Fraunces for titles, self-hosted from
+    `public/fonts/` (`src/styles/fonts.css`, 102 KB in three files, SIL Open Font License).
+    Numbers use the device's monospace font. Form labels are sentence case
+  - Icons: the pixel mark as favicon (`favicon.svg` switches with the device colour
+    scheme, `favicon.ico` for the rest), Apple touch icon and app icons; the blue
+    placeholder squares are gone. `scripts/generate-icons.mjs` draws them, no dependencies
+  - Surfaces: 10 and 14 px corners, hairline borders, a faint under-glow in the accent
+  - The browser theme colour and the manifest follow the new dark page colour
+- **Accessibility**
+  - `tests/contrast.test.ts` reads the token files and fails if any text pairing drops
+    under its bar (7:1 for body text, links and buttons; 4.5:1 for the rest; 3:1 for
+    input outlines), in all three themes
+  - Form fields have a visible outline (3:1) instead of an inset shadow; in high contrast,
+    a focused field shows a yellow outline; checkboxes keep the browser's own focus ring
+  - `prefers-reduced-motion: reduce` turns off the view animation and transitions
+  - The high-contrast theme, Quick Exit, all wording and the not-found page are unchanged
+- The service worker now stores 13 files (181 KiB) for offline use, up from 7 (73 KiB); the
+  fonts are most of the difference. The JavaScript bundle is unchanged (11.66 KB gzipped)
+
 ### Added (2026-10-23)
 
 - **Not-found view** (`src/views/not-found.ts`)

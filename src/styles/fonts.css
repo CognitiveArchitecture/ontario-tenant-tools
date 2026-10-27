@@ -1,0 +1,37 @@
+/**
+ * Ontario Tenant Tools - Web Fonts
+ *
+ * Self-hosted from public/fonts/, so the CSP's font-src 'self' holds and
+ * nothing is fetched from a third party. Both faces are under the SIL Open
+ * Font License 1.1 (docs/DESIGN.md). font-display: swap, so text shows at once
+ * in the fallback face and switches when the file arrives.
+ *
+ * Atkinson Hyperlegible: body and interface text. Designed by the Braille
+ * Institute so that similar letters (I, l, 1; O, 0) cannot be confused.
+ * Fraunces: the header title and view titles. A variable font: one file
+ * covers every weight.
+ */
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('/fonts/AtkinsonHyperlegible-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('/fonts/AtkinsonHyperlegible-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Fraunces';
+  src: url('/fonts/Fraunces-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}

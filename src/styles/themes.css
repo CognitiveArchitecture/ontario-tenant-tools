@@ -1,20 +1,26 @@
 /**
  * Ontario Tenant Tools - Theme Overrides
  *
- * Light mode and high contrast variants.
+ * Light mode and high contrast variants. Ratios as in tokens.css.
  */
 
-/* Light Mode */
+/* Light Mode: warm parchment, violet accent */
 body.light-mode {
-  --surface-base: #f1f5f9;
-  --surface-card: #ffffff;
-  --surface-float: #e2e8f0;
-  --text-primary: #0f172a;
-  --text-secondary: #475569; /* 6.9:1 on base, 7.6:1 on cards, 6.2:1 on float */
-  --text-danger: #991b1b; /* Help tab: 7.6:1 on base */
-  --brand-primary: #2563eb; /* links, icons, active tab: 4.7:1 on base, 5.2:1 on cards */
-  --brand-button-bg: #1e40af; /* 8.7:1 with white */
+  --surface-base: #f5f2eb; /* brand parchment */
+  --surface-card: #fdfcf9; /* paper: cards, bottom nav, inputs */
+  --surface-float: #ebe7db; /* brand second parchment: dialogs, timeline track */
+  --border-hairline: #d4cfc5; /* brand rule */
+  --border-input: #8b857a; /* 3.2:1 on the page */
+  --text-primary: #15201a; /* brand ink: 15.0:1 on page, 16.3:1 on cards, 13.6:1 on dialogs */
+  --text-secondary: #3a453d; /* brand softer ink: 9.0:1, 9.8:1, 8.1:1 */
+  --text-danger: #991b1b; /* Help tab: 7.4:1 on page, 8.1:1 on cards */
+  --brand-primary: #513592; /* brand link violet (its heading violet #5b3fa3 is 6.3:1 on dialogs):
+                               8.3:1 on page, 9.0:1 on cards, 7.5:1 on dialogs */
+  --brand-button-bg: #513592; /* buttons: white on violet, 9.2:1 */
   --brand-button-fg: #ffffff;
+  --brand-glow: rgba(124, 86, 214, 0.3);
+  --accent-warning: #b07a0f; /* brand amber, 3.3:1: the warning bar only, never text */
+  --shadow-soft: 0 1px 2px rgba(26, 32, 26, 0.05), 0 10px 28px -8px var(--brand-glow);
   --state-danger-bg: #fee2e2;
   --state-danger-fg: #991b1b; /* 6.8:1 */
   --state-warning-bg: #ffedd5;
@@ -24,20 +30,11 @@ body.light-mode {
 }
 
 body.light-mode header {
-  background: rgba(255, 255, 255, 0.8);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-body.light-mode .bottom-nav {
-  /* Solid, not translucent: the nav sits below the body box, and the contrast
-     checker cannot resolve a see-through background there */
-  background: var(--surface-card);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(245, 242, 235, 0.85);
 }
 
 body.light-mode input {
-  background: #fff;
-  border: 1px solid #cbd5e1;
+  background: var(--surface-card);
 }
 
 /* High Contrast (WCAG AAA) */
@@ -45,6 +42,8 @@ body.high-contrast {
   --surface-base: #000000 !important;
   --surface-card: #000000 !important;
   --surface-float: #000000 !important;
+  --border-hairline: #ffffff !important;
+  --border-input: #ffffff !important;
   --text-primary: #ffffff !important;
   --text-secondary: #ffff00 !important;
   --text-danger: #ff0000 !important; /* 5.3:1 on black */
@@ -52,6 +51,7 @@ body.high-contrast {
   --brand-button-bg: #000000 !important; /* buttons: yellow text on black, white border */
   --brand-button-fg: #ffff00 !important;
   --brand-glow: none !important;
+  --accent-warning: #ffff00 !important;
   --state-danger-bg: #000 !important;
   --state-danger-fg: #ff0000 !important;
   --state-warning-bg: #000 !important;
@@ -60,6 +60,21 @@ body.high-contrast {
   --state-success-fg: #00ff00 !important;
   --radius-lg: 0px !important;
   --radius-md: 0px !important;
+}
+
+body.high-contrast header {
+  background: #000;
+}
+
+/* Titles stay white, as they always were in this theme */
+body.high-contrast h2 {
+  color: var(--text-primary);
+}
+
+/* The white border overrides the focus border colour, so show focus as an outline */
+body.high-contrast input:focus {
+  outline: 3px solid #ffff00;
+  outline-offset: 2px;
 }
 
 body.high-contrast .triage-card,
