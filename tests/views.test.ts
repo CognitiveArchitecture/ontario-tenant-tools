@@ -16,6 +16,7 @@ import * as s82 from '../src/views/s82';
 import * as report from '../src/views/report';
 import * as resources from '../src/views/resources';
 import * as contacts from '../src/views/contacts';
+import * as notFound from '../src/views/not-found';
 
 // ============================================
 // Home View
@@ -314,5 +315,45 @@ describe('Contacts View', () => {
 
   it('init() is a function', () => {
     expect(typeof contacts.init).toBe('function');
+  });
+});
+
+// ============================================
+// Not Found View
+// ============================================
+
+describe('Not Found View', () => {
+  it('render() returns a non-empty string', () => {
+    const html = notFound.render();
+    expect(html).toBeTruthy();
+    expect(typeof html).toBe('string');
+    expect(html.length).toBeGreaterThan(0);
+  });
+
+  it('render() includes expected HTML elements', () => {
+    const html = notFound.render();
+    expect(html).toContain('id="not-found"');
+    expect(html).toContain('class="view-section');
+    expect(html).toContain('src="/404-cliff.png"');
+    expect(html).toContain('<h2');
+    expect(html).toContain('404');
+  });
+
+  it('render() includes a real link back to the start page', () => {
+    const html = notFound.render();
+    expect(html).toContain('<a href="/"');
+  });
+
+  it('render() includes accessibility attributes', () => {
+    const html = notFound.render();
+    expect(html).toContain(
+      'alt="Pixel-art illustration of a mossy cliff edge with a single leaf drifting into the empty space below."'
+    );
+    expect(html).toContain('width="400"');
+    expect(html).toContain('height="400"');
+  });
+
+  it('init() is a function', () => {
+    expect(typeof notFound.init).toBe('function');
   });
 });

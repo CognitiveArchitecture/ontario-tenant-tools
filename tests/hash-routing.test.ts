@@ -56,6 +56,11 @@ describe('hashForView', () => {
     expect(hashForView('s82')).toBe('#s82');
   });
 
+  it('gives the not-found view no hash of its own', () => {
+    expect(hashForView('not-found')).toBe('');
+    expect(viewFromHash('#not-found')).toBeNull();
+  });
+
   it('round-trips with viewFromHash', () => {
     for (const viewId of ALL_VIEWS) {
       const hash = hashForView(viewId);

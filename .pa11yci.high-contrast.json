@@ -23,6 +23,7 @@
     "http://localhost:3000/#s82",
     "http://localhost:3000/#report",
     "http://localhost:3000/#resources",
-    "http://localhost:3000/#contacts"
+    "http://localhost:3000/#contacts",
+    "http://localhost:3000/this-page-does-not-exist"
   ]
 }

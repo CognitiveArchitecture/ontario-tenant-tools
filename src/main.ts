@@ -4,26 +4,23 @@
  * Initializes the application: theme, navigation, panels, and quick exit.
  */
 
-import {
-  initNavigation,
-  type ViewModule,
-  type ViewId,
-} from "./utils/navigation";
-import { initTheme } from "./utils/theme";
-import { initQuickExit } from "./components/quick-exit";
-import { initPanels } from "./components/panels";
+import { initNavigation, type ViewModule, type ViewId } from './utils/navigation';
+import { initTheme } from './utils/theme';
+import { initQuickExit } from './components/quick-exit';
+import { initPanels } from './components/panels';
 
 // Import all views
-import * as homeView from "./views/home";
-import * as toolsView from "./views/tools";
-import * as n4View from "./views/n4";
-import * as n12View from "./views/n12";
-import * as rentView from "./views/rent";
-import * as reviewView from "./views/review";
-import * as s82View from "./views/s82";
-import * as reportView from "./views/report";
-import * as resourcesView from "./views/resources";
-import * as contactsView from "./views/contacts";
+import * as homeView from './views/home';
+import * as toolsView from './views/tools';
+import * as n4View from './views/n4';
+import * as n12View from './views/n12';
+import * as rentView from './views/rent';
+import * as reviewView from './views/review';
+import * as s82View from './views/s82';
+import * as reportView from './views/report';
+import * as resourcesView from './views/resources';
+import * as contactsView from './views/contacts';
+import * as notFoundView from './views/not-found';
 
 // View registry
 const views: Record<ViewId, ViewModule> = {
@@ -37,6 +34,7 @@ const views: Record<ViewId, ViewModule> = {
   report: reportView,
   resources: resourcesView,
   contacts: contactsView,
+  'not-found': notFoundView,
 };
 
 /**
@@ -56,17 +54,14 @@ function init(): void {
   initPanels();
 
   // Log startup (development only)
-  if (
-    typeof window !== "undefined" &&
-    window.location.hostname === "localhost"
-  ) {
-    console.log("Ontario Tenant Tools initialized");
+  if (typeof window !== 'undefined' && window.location.hostname === 'localhost') {
+    console.log('Ontario Tenant Tools initialized');
   }
 }
 
 // Start the application when DOM is ready
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", init);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
 } else {
   init();
 }

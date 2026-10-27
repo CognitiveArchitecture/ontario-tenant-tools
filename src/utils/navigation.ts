@@ -16,7 +16,8 @@ export type ViewId =
   | 'n12'
   | 'rent'
   | 'review'
-  | 's82';
+  | 's82'
+  | 'not-found';
 
 export type TabId = 'home' | 'tools' | 'report' | 'resources' | 'contacts';
 
@@ -52,7 +53,21 @@ const VIEW_TITLES: Record<ViewId, string> = {
   rent: 'Rent Increase Check',
   review: 'Eviction Order Review',
   s82: 'Section 82 Deposit',
+  'not-found': 'Page Not Found',
 };
+
+/**
+ * Paths the app answers. Netlify sends every path to index.html, so the app
+ * has to tell an unknown address apart itself and show the not-found view.
+ */
+const KNOWN_PATHS = ['/', '/index.html'];
+
+/**
+ * Check whether a URL path is one the app serves.
+ */
+export function isKnownPath(pathname: string): boolean {
+  return KNOWN_PATHS.includes(pathname);
+}
 
 /**
  * Read the view named by an address-bar hash. "#n4" gives "n4". An empty or
@@ -65,9 +80,11 @@ export function viewFromHash(hash: string): ViewId | null {
 
 /**
  * The address-bar hash that names a view: "" for home, "#n4" for the N4 tool.
+ * The not-found view has no address of its own (it is shown for whatever
+ * unknown path the visitor arrived on), so it gets no hash either.
  */
 export function hashForView(viewId: ViewId): string {
-  return viewId === 'home' ? '' : `#${viewId}`;
+  return viewId === 'home' || viewId === 'not-found' ? '' : `#${viewId}`;
 }
 
 /**
@@ -101,14 +118,31 @@ export function initNavigation(views: Record<ViewId, ViewModule>): void {
     }
   });
 
-  // Render the view named in the address bar, or home
-  openView(viewFromHash(window.location.hash) ?? 'home');
+  // Render the view named in the address bar, or home; an unknown path shows
+  // the not-found view instead
+  if (isKnownPath(window.location.pathname)) {
+    openView(viewFromHash(window.location.hash) ?? 'home');
+  } else {
+    showNotFound();
+  }
+}
+
+/**
+ * Show the not-found view. No tab is active and there is no history to go back to.
+ */
+export function showNotFound(): void {
+  state.historyStack = ['not-found'];
+  state.currentView = 'not-found';
+  renderView('not-found');
+  updateNavState(null);
+  updateBackButton(false);
 }
 
 /**
  * Switch to a tab view (clears history stack).
  */
 export function switchTab(tabId: TabId): void {
+  leaveUnknownPath();
   state.historyStack = [tabId];
   state.currentView = tabId;
   renderView(tabId);
@@ -157,6 +191,7 @@ export function getCurrentView(): ViewId {
  * a tool gets a back button that returns to the home view.
  */
 function openView(viewId: ViewId): void {
+  leaveUnknownPath();
   if (TAB_VIEWS.includes(viewId as TabId)) {
     switchTab(viewId as TabId);
   } else {
@@ -209,7 +244,7 @@ function syncHash(viewId: ViewId): void {
 /**
  * Update nav item active states.
  */
-function updateNavState(activeTab: TabId): void {
+function updateNavState(activeTab: TabId | null): void {
   const navItems = document.querySelectorAll('.nav-item');
   navItems.forEach((item) => {
     const viewId = item.getAttribute('data-view');
@@ -226,5 +261,18 @@ function updateBackButton(show: boolean): void {
   const backBtn = document.getElementById('back-btn');
   if (backBtn) {
     backBtn.style.display = show ? 'block' : 'none';
+  }
+}
+
+/**
+ * When the user leaves the not-found view, put the address back to the start
+ * page so that a reload or bookmark does not land on "Page Not Found" again.
+ */
+function leaveUnknownPath(): void {
+  if (state.currentView !== 'not-found') return;
+  try {
+    window.history.replaceState(null, '', '/');
+  } catch {
+    // History API might fail in some contexts
   }
 }
