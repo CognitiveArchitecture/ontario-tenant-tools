@@ -15,13 +15,14 @@ export default defineConfig({
   plugins: [
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icons/*.png'],
+      // The PNG and SVG icons match the precache glob below; the .ico does not
+      includeAssets: ['favicon.ico'],
       manifest: {
         name: 'Ontario Tenant Tools',
         short_name: 'TenantTools',
         description: 'Free tools for Ontario tenants facing eviction',
-        theme_color: '#0f172a',
-        background_color: '#0f172a',
+        theme_color: '#16171a',
+        background_color: '#16171a',
         display: 'standalone',
         start_url: '/',
         scope: '/',

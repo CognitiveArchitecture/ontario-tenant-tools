@@ -1,31 +1,42 @@
 /**
  * Ontario Tenant Tools - Design Tokens
  *
- * CSS custom properties for colors, spacing, and typography.
- * Default: Dark slate theme (optimized for low-light reading)
+ * CSS custom properties for colours, type, spacing and layout.
+ * Default: the dark theme (charcoal), for low-light reading.
  *
- * Contrast ratios in the comments are WCAG 2.1 ratios against the surfaces
- * the colour is used on. The CI scan requires 4.5:1 (AA); 7:1 is the target.
+ * The colours follow the Data Druid brand of sebthecanadian.ca (its
+ * docs/brand.md): a neutral charcoal page in dark mode, warm parchment in
+ * light, one accent that is fern green in dark and violet in light, amber for
+ * warnings. Where a value differs from the brand's, the comment says why.
+ *
+ * Contrast ratios in the comments are WCAG 2.x ratios against the surfaces
+ * the colour is used on. The CI scan requires 4.5:1 (AA); body text, links
+ * and buttons must reach 7:1 (AAA). tests/contrast.test.ts checks every
+ * pairing; docs/DESIGN.md has the full table.
  */
 
 :root {
-  /* Base Palette (Dark Slate - Default) */
-  --surface-base: #0f172a;
-  --surface-card: #1e293b;
-  --surface-float: #334155;
+  /* Surfaces (dark, default) */
+  --surface-base: #16171a; /* page: brand charcoal */
+  --surface-card: #1d1e21; /* cards, bottom nav: brand panel shade */
+  --surface-float: #26272b; /* inputs, dialogs, timeline track: one step lighter */
+  --border-hairline: #2c2d31; /* card and header hairlines: brand rule */
+  --border-input: #6b6a66; /* input outline: 3.1:1 on the page (non-text, 3:1 required) */
 
-  /* Typography Colors */
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1; /* 12.0:1 on base, 9.9:1 on cards, 7.0:1 on float */
-  --text-danger: #ef4444; /* Help tab: 4.7:1 on base */
+  /* Text */
+  --text-primary: #e8e4dc; /* brand ink: 14.1:1 on page, 13.2:1 on cards, 11.8:1 on inputs */
+  --text-secondary: #c3bdaf; /* brand softer ink: 9.6:1, 8.9:1, 8.0:1 */
+  --text-danger: #f87171; /* Help tab: 6.5:1 on page, 6.0:1 on cards */
 
-  /* Brand */
-  --brand-primary: #60a5fa; /* links, icons, active tab: 7.0:1 on base, 5.8:1 on cards */
-  --brand-button-bg: #1e40af; /* solid fill behind button text: 8.7:1 with white */
-  --brand-button-fg: #ffffff;
-  --brand-glow: rgba(59, 130, 246, 0.3);
+  /* Brand accent: links, icons, active tab, view titles */
+  --brand-primary: #8fb86c; /* fern, two steps brighter than the brand's #6f9d52 (5.25:1 on cards)
+                               so it reaches 7.9:1 on page, 7.3:1 on cards, 6.6:1 on inputs */
+  --brand-button-bg: #8fb86c; /* buttons: charcoal text on fern, 7.9:1 */
+  --brand-button-fg: #16171a;
+  --brand-glow: rgba(150, 200, 120, 0.3); /* focus halo and card under-glow */
+  --accent-warning: #d9b24a; /* brand amber: the warning timeline bar only, never text */
 
-  /* Semantic States */
+  /* Semantic states (alert boxes carry their own background) */
   --state-danger-bg: #450a0a;
   --state-danger-fg: #fecaca; /* 11.2:1 */
   --state-warning-bg: #422006;
@@ -33,14 +44,16 @@
   --state-success-bg: #064e3b;
   --state-success-fg: #a7f3d0; /* 7.6:1 */
 
-  /* Typography */
-  --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  /* Type (the faces are declared in fonts.css) */
+  --font-family: 'Atkinson Hyperlegible', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-mono: ui-monospace, 'IBM Plex Mono', Menlo, Consolas, monospace;
   --font-size-base: clamp(1rem, 4vw, 1.2rem);
 
-  /* Spacing & Radius */
-  --radius-lg: 24px;
-  --radius-md: 16px;
-  --shadow-soft: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  /* Spacing & radius: the brand's one card look */
+  --radius-lg: 14px;
+  --radius-md: 10px;
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 28px -8px var(--brand-glow);
 
   /* Layout */
   --header-height: 70px;
